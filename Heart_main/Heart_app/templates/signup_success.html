@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container" style="text-align:center;">
+    <h2>Signup Successful!</h2>
+    <p>Welcome, {{ username }}!<br>
+    You can now <a href="{% url 'predict' %}">predict heart Attack</a>.</p>
+</div>
+{% endblock %}

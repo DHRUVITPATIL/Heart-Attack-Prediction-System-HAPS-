@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Attack Prediction System</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { margin:0; font-family:Arial,sans-serif; }
+      .navbar {
+        background:black; color:#fff; padding:16px 8vw; display:flex; justify-content:space-between; align-items:center;
+      }
+      .navbar .title { font-size:2em;}
+      .navbar ul { list-style:none; margin:0; padding:0; display:flex; gap:30px; }
+      .navbar ul li { display:inline; }
+      .navbar ul li a, .navbar .sign-in-btn {
+        text-decoration: none; color:#fff; font-weight:bold; padding:8px 18px; border-radius:6px; transition:.2s;
+      }
+      .navbar .sign-in-btn {
+        background:white; color:black; margin-left: 16px;
+      }
+      .navbar ul li a:hover, .navbar .sign-in-btn:hover {
+        background: #333; color: #eee;
+      }
+      .hero-section {
+        position: relative;
+        min-height: 90vh;
+        background: url('{% static "hero.jpg" %}') no-repeat center center/cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 8vw;
+      }
+      .hero-content {
+        background: rgba(255,255,255,0.7); padding:40px 40px 30px 30px; border-radius:18px; box-shadow:0 4px 20px rgba(0,0,0,0.13);
+        max-width: 470px;
+      }
+      .hero-content h1 {
+        font-size:2.5em; font-weight:700; margin-bottom:12px;
+      }
+      .hero-content p {
+        font-size:1.45em; margin-bottom:32px; margin-top:0;
+      }
+      .hero-content .btn {
+        padding:12px 24px; font-size:1em; border:none; border-radius:8px; margin-right:15px;
+        font-weight:bold; cursor:pointer; transition:.2s;
+      }
+      .hero-content .btn-primary { background:black; color:#fff; }
+      .hero-content .btn-outline { background:transparent; border:2px solid black; color:black; }
+      .hero-content .btn-primary:hover { background:#444; }
+      .hero-content .btn-outline:hover { background:black; color:#fff; }
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="title">Heart Attack Prediction System</div>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+      <!-- <li><a href="{% url 'signin' %}" class="sign-in-btn">SIGN IN</a></li> -->
+       {% if user.is_authenticated %}
+      <li><a href="{% url 'profile' %}">{{ user.username }}'s Profile</a></li>
+      <li><a href="{% url 'signout' %}">Sign Out</a></li>
+      {% else %}
+      <li><a href="{% url 'signin' %}">Sign In</a></li>
+        {% endif %}
+
+    </ul>
+    
+  </nav>
+  {% block content %}{% endblock %}
+  <!-- Footer Section -->
+<footer style="background:#111; color:#eee; padding:50px 8vw 28px 8vw;">
+  <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
+    <div style="flex:1; min-width:220px; margin-bottom:18px;">
+      <h3 style="margin-top:0; color:#fff;">HAPS</h3>
+      <p style="font-size:1em;">Heart Attack Prediction System (HAPS) is a user-friendly web-based application which predicts heart Attack using Machine Learning algorithm (ML).</p>
+    </div>
+    <div style="flex:1; min-width:180px; margin-bottom:18px;">
+      <h3 style="margin-top:0; color:#fff;">Quick Links</h3>
+      <p><a href="#" style="color:#eee;">Privacy</a></p>
+      <p><a href="#" style="color:#eee;">Contact</a></p>
+      <p><a href="#" style="color:#eee;">About</a></p>
+      <p><a href="#" style="color:#eee;">Signin</a></p>
+    </div>
+    <div style="flex:1; min-width:210px; margin-bottom:18px;">
+      <h3 style="margin-top:0; color:#fff;">Contacts</h3>
+      <p>Ahmedabad,Gujarat India</p>
+      <p>Patil_Dhruvit_@gmail.com</p>
+      <p>1234567890</p>
+    </div>
+    <div style="flex:1; min-width:160px; margin-bottom:18px;">
+      <h3 style="margin-top:0; color:#fff;">Visit Us</h3>
+      <div style="font-size:2em;">
+        <a href="#" style="color:#eee; margin-right:15px;"><i class="fa fa-facebook"></i></a>
+        <a href="#" style="color:#eee; margin-right:15px;"><i class="fa fa-instagram"></i></a>
+        <a href="#" style="color:#eee; margin-right:15px;"><i class="fa fa-github"></i></a>
+        <a href="#" style="color:#eee;"><i class="fa fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+  <div class="form-title">
+    <h2>Heart Disease Predictor</h2>
+    <p>Enter your health details below. Our system will instantly predict your heart disease risk!</p>
+  </div>
+
+  <form method="post" class="prediction-form" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="errorlist">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Predict</button>
+  </form>
+
+  {% if prediction %}
+    <div class="prediction-result">
+      <h3>Result:</h3>
+      <p>{{ prediction }}</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

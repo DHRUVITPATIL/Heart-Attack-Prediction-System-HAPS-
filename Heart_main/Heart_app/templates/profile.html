@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-title">
+        <h2>Your Profile</h2>
+        <p>View and update your account information below.</p>
+    </div>
+    {% if success %}
+      <div class="success-message">{{ success }}</div>
+    {% endif %}
+    <form method="post" class="prediction-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="errorlist">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    <p><a href="{% url 'change_password' %}">Change Password</a></p>
+<div class="prediction-history">
+  <h3>Your Recent Predictions</h3>
+  {% if history %}
+    <table>
+      <tr><th>Date</th><th>Features</th><th>Result</th></tr>
+      {% for h in history %}
+      <tr>
+        <td>{{ h.date|date:'Y-m-d H:i' }}</td>
+        <td>{{ h.features }}</td>
+        <td>{{ h.prediction }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No prediction history yet.</p>
+  {% endif %}
+</div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contact-container">
+  <div class="contact-info">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! Whether you have questions about the Heart Attack Prediction System or want to share feedback, please fill out the form below.</p>
+    <p><strong>Our Address:</strong> Ahmedabad,Gujarat India</p>
+    <p><strong>Email:</strong> Patil_Dhruvit_@gmail.com</p>
+    <p><strong>Phone:</strong> 1234567890</p>
+  </div>
+
+  <div class="feedback-form">
+    <h3>Send Your Feedback</h3>
+    {% if submitted %}
+      <div class="success-message">
+        <p>Thank you for your feedback! We appreciate your time.</p>
+      </div>
+    {% endif %}
+    <form method="post" class="feedback-form-style" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            <div class="errorlist">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Send Feedback</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
